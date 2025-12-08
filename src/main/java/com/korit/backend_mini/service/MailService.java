@@ -42,8 +42,8 @@ public class MailService {
         return new ApiRespDto<>("success", "인증 이메일 전송", null);
     }
     public Map<String, Object> verify(String token) {
-        Claims claims = null;
-        Map<String, Object> resultMap = null;
+        Claims claims;
+        Map<String, Object> resultMap;
 
         try {
             claims = jwtUtils.getClaims(token);

@@ -64,4 +64,16 @@ public class UserAccountService {
         }
         return new ApiRespDto<>("success", "변경 성공", null);
     }
+
+    public ApiRespDto<?> removeUser (Integer userId) {
+        Optional<User> foundUser = userRepository.findUserByUserId(userId);
+        if (foundUser.isEmpty()) {
+            return new ApiRespDto<>("failed", "해당 유저가 존재하지 않습니다", null);
+        }
+        int result = userRepository.removeUser(userId);
+        if (result != 1) {
+            return new ApiRespDto<>("failed", "문제 발생", null);
+        }
+        return new ApiRespDto<>("success", "성공", null);
+    }
 }

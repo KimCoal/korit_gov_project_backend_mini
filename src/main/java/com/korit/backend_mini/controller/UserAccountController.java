@@ -30,4 +30,10 @@ public class UserAccountController {
         return ResponseEntity.ok(userAccountService.modifyUsername(modifyUsernameReqDto, principal));
     }
 
+    @PostMapping("/delete")
+    public ResponseEntity<?> removeUser(@AuthenticationPrincipal Principal principal) {
+        Integer userId = principal.getUserId();
+        return ResponseEntity.ok(userAccountService.removeUser(userId));
+    }
+
 }

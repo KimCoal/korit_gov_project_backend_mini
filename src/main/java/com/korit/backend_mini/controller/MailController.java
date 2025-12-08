@@ -28,7 +28,7 @@ public class MailController {
     @GetMapping("/verify")
     public String verify(Model model, @RequestParam String token) {
         Map<String, Object> resultMap = mailService.verify(token);
-        model.addAttribute(resultMap);
+        model.addAllAttributes(resultMap);
         return "result_page";
     }
 }

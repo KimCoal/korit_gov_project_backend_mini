@@ -44,4 +44,8 @@ public class UserRepository {
     public int modifyUsername (User user) {
         return userMapper.modifyUsername(user);
     }
+
+    public int removeUser (Integer userId) {
+        return userMapper.removeUser(userId);
+    }
 }
