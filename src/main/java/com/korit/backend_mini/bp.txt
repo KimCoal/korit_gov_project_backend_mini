@@ -1,0 +1,49 @@
+게시판 (Board)
+
+기능 (Func)
+
+1. 회원
+    - 일반
+        - 회원가입 (email, password) / username - nickname
+        - 로그인
+    - OAuth (Google, Naver)
+        - 회원가입
+        - 연동
+2. 게시판
+    - 전체조회 (List)
+    - 상세조회 (board 내용 페이지)
+    - 제목또는 내용 키워드 조회
+    - 추가, 수정, 삭제
+    - 유저 게시물 조회 (userId)
+3. 계정
+    - 회원정보 조회
+    - 비밀번호 변경
+    - 닉네임 변경
+    - 이메일 인증 (SMTP)
+    - 회원탈퇴 (보류)
+4. 관리자
+    - 회원 리스트 조회
+    - 회원탈퇴
+    - 게시물 삭제
+
+ERD
+    user_tb (index - PK, UQ)
+        - user_id INT PK NN AI
+        - email VARCHAR(45) UQ NN
+        - password VARCHAR(100) NN
+        - username VARCHAR(45) NN UQ
+        - create_dt DT NN
+        - update_dt DT
+    board_tb
+        - board_id INT PK NN AI
+        - board_title VARCHAR(45) NN
+        - board_content VARCHAR(200) NN
+        - user_id INT NN - FK REFERENCES user_tb(user_id)
+        - create_dt DT NN
+        - update_dt DT
+    {
+        oauth_user_tb
+        user_role_tb
+        role_tb
+        - 기존방식 그대로
+    }
