@@ -61,6 +61,9 @@ public class UserAuthService {
         if (!bCryptPasswordEncoder.matches(signinReqDto.getPassword(), user.getPassword())) {
             return new ApiRespDto<>("failed", "정보 확인", null);
         }
+        if (!foundUser.get().isActive()) {
+            return new ApiRespDto<>("failed", "탈퇴 처리된 계정입니다", null);
+        }
 
         String accessToken = jwtUtils.generateAccessToken(user.getUserId().toString());
         return new ApiRespDto<>("success", "로그인 성공", accessToken);
