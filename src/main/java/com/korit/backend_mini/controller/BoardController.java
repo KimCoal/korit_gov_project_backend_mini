@@ -1,8 +1,8 @@
 package com.korit.backend_mini.controller;
 
-import com.korit.backend_mini.dto.AddBoardReqDto;
-import com.korit.backend_mini.dto.ModifyBoardReqDto;
-import com.korit.backend_mini.dto.RemoveBoardReqDto;
+import com.korit.backend_mini.dto.board.AddBoardReqDto;
+import com.korit.backend_mini.dto.account.ModifyBoardReqDto;
+import com.korit.backend_mini.dto.board.RemoveBoardReqDto;
 import com.korit.backend_mini.security.model.Principal;
 import com.korit.backend_mini.service.BoardService;
 import lombok.RequiredArgsConstructor;

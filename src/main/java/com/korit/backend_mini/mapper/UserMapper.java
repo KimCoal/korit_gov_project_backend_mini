@@ -3,6 +3,7 @@ package com.korit.backend_mini.mapper;
 import com.korit.backend_mini.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
 import java.util.Optional;
 
 @Mapper
@@ -13,5 +14,7 @@ public interface UserMapper {
     int addUser(User user);
     int modifyPassword (User user);
     int modifyUsername (User user);
-    int removeUser (Integer userId);
+    List<User> getUserList();
+    int withdraw (Integer userId);
+    void removeUser ();
 }

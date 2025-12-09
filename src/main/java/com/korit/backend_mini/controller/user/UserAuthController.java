@@ -1,7 +1,7 @@
-package com.korit.backend_mini.controller;
+package com.korit.backend_mini.controller.user;
 
-import com.korit.backend_mini.dto.SigninReqDto;
-import com.korit.backend_mini.dto.SignupReqDto;
+import com.korit.backend_mini.dto.auth.SigninReqDto;
+import com.korit.backend_mini.dto.auth.SignupReqDto;
 import com.korit.backend_mini.service.UserAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

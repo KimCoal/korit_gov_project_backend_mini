@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -45,7 +46,15 @@ public class UserRepository {
         return userMapper.modifyUsername(user);
     }
 
-    public int removeUser (Integer userId) {
-        return userMapper.removeUser(userId);
+    public List<User> getUserList () {
+        return userMapper.getUserList();
+    }
+
+    public int withdraw (Integer userId) {
+        return userMapper.withdraw(userId);
+    }
+
+    public void removeUser () {
+        userMapper.removeUser();
     }
 }

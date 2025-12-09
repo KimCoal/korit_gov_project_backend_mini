@@ -1,12 +1,11 @@
 package com.korit.backend_mini.repository;
 
-import com.korit.backend_mini.dto.BoardRespDto;
+import com.korit.backend_mini.dto.response.BoardRespDto;
 import com.korit.backend_mini.entity.Board;
 import com.korit.backend_mini.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.net.Inet4Address;
 import java.util.List;
 import java.util.Optional;
 

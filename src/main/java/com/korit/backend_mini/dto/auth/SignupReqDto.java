@@ -1,4 +1,4 @@
-package com.korit.backend_mini.dto;
+package com.korit.backend_mini.dto.auth;
 
 import com.korit.backend_mini.entity.User;
 import lombok.AllArgsConstructor;

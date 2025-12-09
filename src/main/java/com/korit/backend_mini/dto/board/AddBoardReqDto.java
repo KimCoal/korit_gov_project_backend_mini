@@ -1,4 +1,4 @@
-package com.korit.backend_mini.dto;
+package com.korit.backend_mini.dto.board;
 
 import com.korit.backend_mini.entity.Board;
 import lombok.AllArgsConstructor;

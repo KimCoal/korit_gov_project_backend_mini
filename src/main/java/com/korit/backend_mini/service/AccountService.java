@@ -1,8 +1,8 @@
 package com.korit.backend_mini.service;
 
-import com.korit.backend_mini.dto.ApiRespDto;
-import com.korit.backend_mini.dto.ModifyPasswordReqDto;
-import com.korit.backend_mini.dto.ModifyUsernameReqDto;
+import com.korit.backend_mini.dto.response.ApiRespDto;
+import com.korit.backend_mini.dto.account.ModifyPasswordReqDto;
+import com.korit.backend_mini.dto.account.ModifyUsernameReqDto;
 import com.korit.backend_mini.entity.User;
 import com.korit.backend_mini.repository.UserRepository;
 import com.korit.backend_mini.security.model.Principal;
@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserAccountService {
+public class AccountService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -65,15 +65,22 @@ public class UserAccountService {
         return new ApiRespDto<>("success", "변경 성공", null);
     }
 
-    public ApiRespDto<?> removeUser (Integer userId) {
-        Optional<User> foundUser = userRepository.findUserByUserId(userId);
+    public ApiRespDto<?> withdraw (Principal principal) {
+        Optional<User> foundUser = userRepository.findUserByUserId(principal.getUserId());
         if (foundUser.isEmpty()) {
-            return new ApiRespDto<>("failed", "해당 유저가 존재하지 않습니다", null);
+            return new ApiRespDto<>("failed", "회원정보가 존재하지 않습니다",null);
         }
-        int result = userRepository.removeUser(userId);
+        User user = foundUser.get();
+        if (!user.isActive()) {
+            return new ApiRespDto<>("failed", "이미 탈퇴처리된 계정입니다", null);
+        }
+
+        int result = userRepository.withdraw(user.getUserId());
         if (result != 1) {
-            return new ApiRespDto<>("failed", "문제 발생", null);
+            return new ApiRespDto<>("failed", "탈퇴 실패", null);
         }
-        return new ApiRespDto<>("success", "성공", null);
+        return new ApiRespDto<>("success", "탈퇴 성공", null);
+
     }
+
 }

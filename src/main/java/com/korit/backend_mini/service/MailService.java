@@ -1,6 +1,6 @@
 package com.korit.backend_mini.service;
 
-import com.korit.backend_mini.dto.ApiRespDto;
+import com.korit.backend_mini.dto.response.ApiRespDto;
 import com.korit.backend_mini.entity.User;
 import com.korit.backend_mini.entity.UserRole;
 import com.korit.backend_mini.repository.UserRepository;
@@ -9,7 +9,6 @@ import com.korit.backend_mini.security.jwt.JwtUtils;
 import com.korit.backend_mini.security.model.Principal;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

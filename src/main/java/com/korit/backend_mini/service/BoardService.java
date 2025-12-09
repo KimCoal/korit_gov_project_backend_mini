@@ -1,13 +1,15 @@
 package com.korit.backend_mini.service;
 
-import com.korit.backend_mini.dto.*;
-import com.korit.backend_mini.entity.Board;
+import com.korit.backend_mini.dto.account.ModifyBoardReqDto;
+import com.korit.backend_mini.dto.board.AddBoardReqDto;
+import com.korit.backend_mini.dto.board.RemoveBoardReqDto;
+import com.korit.backend_mini.dto.response.ApiRespDto;
+import com.korit.backend_mini.dto.response.BoardRespDto;
 import com.korit.backend_mini.entity.User;
 import com.korit.backend_mini.repository.BoardRepository;
 import com.korit.backend_mini.repository.UserRepository;
 import com.korit.backend_mini.security.model.Principal;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

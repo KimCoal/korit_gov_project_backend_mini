@@ -1,4 +1,4 @@
-package com.korit.backend_mini.dto;
+package com.korit.backend_mini.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -13,11 +13,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserAuthService {
+public class AdminAuthService  {
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
     private final JwtUtils jwtUtils;
@@ -41,7 +42,7 @@ public class UserAuthService {
 
         UserRole userRole = UserRole.builder()
                 .userId(optionalUser.get().getUserId())
-                .roleId(3)
+                .roleId(1)
                 .build();
 
         int result = userRoleRepository.addUserRole(userRole);
@@ -60,6 +61,11 @@ public class UserAuthService {
         User user = foundUser.get();
         if (!bCryptPasswordEncoder.matches(signinReqDto.getPassword(), user.getPassword())) {
             return new ApiRespDto<>("failed", "정보 확인", null);
+        }
+
+        List<UserRole> userRoles = foundUser.get().getUserRoles();
+        if (userRoles.stream().noneMatch(userRole -> userRole.getRoleId() == 1)) {
+            return new ApiRespDto<>("failed", "접근권한이 없습니다",null);
         }
 
         String accessToken = jwtUtils.generateAccessToken(user.getUserId().toString());

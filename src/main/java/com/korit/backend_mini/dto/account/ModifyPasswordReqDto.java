@@ -1,9 +1,7 @@
-package com.korit.backend_mini.dto;
+package com.korit.backend_mini.dto.account;
 
-import com.korit.backend_mini.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Data
 @AllArgsConstructor
