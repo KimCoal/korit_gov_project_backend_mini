@@ -23,96 +23,95 @@
 
     <insert id="addBoard">
         insert into
-            board_tb
+        board_tb
         values
-            (0, #{title}, #{content}, #{userId}, now(), null);
+        (0, #{title}, #{content}, #{userId}, now(), null);
     </insert>
 
     <select id="getBoardList" resultMap="BoardRespResultMap">
         select
-            bt.board_id,
-            bt.title,
-            bt.content,
-            bt.user_id,
-            bt.create_dt,
-            bt.update_dt,
-
-            ut.username
+        bt.board_id,
+        bt.title,
+        bt.content,
+        bt.user_id,
+        bt.create_dt,
+        bt.update_dt,
+        ut.username
         from
-            board_tb bt
-            join user_tb ut on (bt.user_id = ut.user_id)
+        board_tb bt
+        join user_tb ut on (bt.user_id = ut.user_id)
         order by
-            bt.create_dt DESC;
+        bt.create_dt DESC;
     </select>
+
     <select id="getBoardByBoardId" resultMap="BoardRespResultMap">
         select
-            bt.board_id,
-            bt.title,
-            bt.content,
-            bt.user_id,
-            bt.create_dt,
-            bt.update_dt,
-
-            ut.username
+        bt.board_id,
+        bt.title,
+        bt.content,
+        bt.user_id,
+        bt.create_dt,
+        bt.update_dt,
+        ut.username
         from
-            board_tb bt
-            join user_tb ut on (bt.user_id = ut.user_id);
+        board_tb bt
+        join user_tb ut on (bt.user_id = ut.user_id)
         where
-            bt.board_id = #{boardId};
+        bt.board_id = #{boardId};
     </select>
+
     <select id="getBoardListByKeyword" resultMap="BoardRespResultMap">
         select
-            bt.board_id,
-            bt.title,
-            bt.content,
-            bt.user_id,
-            bt.create_dt,
-            bt.update_dt,
-
-            ut.username
+        bt.board_id,
+        bt.title,
+        bt.content,
+        bt.user_id,
+        bt.create_dt,
+        bt.update_dt,
+        ut.username
         from
-            board_tb bt
-            join user_tb ut on (bt.user_id = ut.user_id);
+        board_tb bt
+        join user_tb ut on (bt.user_id = ut.user_id)
         where
-            bt.title like "%#{keyword}%" or bt.content like "%#{keyword}%"
+        bt.title like concat('%', #{keyword}, '%')
+        or bt.content like concat('%', #{keyword}, '%')
         order by
-            bt.create_dt DESC;
+        bt.create_dt DESC;
     </select>
+
     <select id="getBoardListByUserId" resultMap="BoardRespResultMap">
         select
-            bt.board_id,
-            bt.title,
-            bt.content,
-            bt.user_id,
-            bt.create_dt,
-            bt.update_dt,
-
-            ut.username
+        bt.board_id,
+        bt.title,
+        bt.content,
+        bt.user_id,
+        bt.create_dt,
+        bt.update_dt,
+        ut.username
         from
-            board_tb bt
-            join user_tb ut on (bt.user_id = ut.user_id);
+        board_tb bt
+        join user_tb ut on (bt.user_id = ut.user_id)
         where
-            bt.user_id = #{userId}
+        bt.user_id = #{userId}
         order by
-            bt.create_dt DESC;
+        bt.create_dt DESC;
     </select>
 
     <update id="modifyBoard">
         update
-            board_tb
-        ser
-            title = #{title},
-            content = #{content},
-            update_dt = now()
+        board_tb
+        set
+        title = #{title},
+        content = #{content},
+        update_dt = now()
         where
-            board_id = #{boardId};
-
+        board_id = #{boardId};
     </update>
 
     <delete id="removeBoard">
         delete from
-            board_tb
+        board_tb
         where
-            board_id = #{boardId};
+        board_id = #{boardId};
     </delete>
 </mapper>
