@@ -16,9 +16,10 @@
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="userId" column="user_id"/>
+        <result property="username" column="username"/>
+        <result property="profileImg" column="profile_img"/>
         <result property="createDt" column="create_dt"/>
         <result property="updateDt" column="update_dt"/>
-        <result property="username" column="username"/>
     </resultMap>
 
     <insert id="addBoard">
@@ -34,9 +35,10 @@
         bt.title,
         bt.content,
         bt.user_id,
+        ut.username,
+        ut.profile_img,
         bt.create_dt,
-        bt.update_dt,
-        ut.username
+        bt.update_dt
         from
         board_tb bt
         join user_tb ut on (bt.user_id = ut.user_id)
@@ -50,9 +52,10 @@
         bt.title,
         bt.content,
         bt.user_id,
+        ut.username,
+        ut.profile_img,
         bt.create_dt,
-        bt.update_dt,
-        ut.username
+        bt.update_dt
         from
         board_tb bt
         join user_tb ut on (bt.user_id = ut.user_id)
@@ -66,9 +69,10 @@
         bt.title,
         bt.content,
         bt.user_id,
+        ut.username,
+        ut.profile_img,
         bt.create_dt,
-        bt.update_dt,
-        ut.username
+        bt.update_dt
         from
         board_tb bt
         join user_tb ut on (bt.user_id = ut.user_id)
@@ -85,9 +89,10 @@
         bt.title,
         bt.content,
         bt.user_id,
+        ut.username,
+        ut.profile_img,
         bt.create_dt,
-        bt.update_dt,
-        ut.username
+        bt.update_dt
         from
         board_tb bt
         join user_tb ut on (bt.user_id = ut.user_id)

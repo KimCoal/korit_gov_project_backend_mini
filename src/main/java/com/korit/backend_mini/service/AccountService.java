@@ -1,5 +1,6 @@
 package com.korit.backend_mini.service;
 
+import com.korit.backend_mini.dto.account.ModifyProfileImgReqDto;
 import com.korit.backend_mini.dto.response.ApiRespDto;
 import com.korit.backend_mini.dto.account.ModifyPasswordReqDto;
 import com.korit.backend_mini.dto.account.ModifyUsernameReqDto;
@@ -82,5 +83,25 @@ public class AccountService {
         return new ApiRespDto<>("success", "탈퇴 성공", null);
 
     }
+
+    public ApiRespDto<?> modifyProfileImg (ModifyProfileImgReqDto modifyProfileImgReqDto, Principal principal) {
+        if (!modifyProfileImgReqDto.getUserId().equals(principal.getUserId())) {
+            return new ApiRespDto<>("failed", "잘못된 접근입니다", null);
+        }
+        Optional<User> foundUser = userRepository.findUserByUserId(modifyProfileImgReqDto.getUserId());
+        if (foundUser.isEmpty()) {
+            return new ApiRespDto<>("failed", "존재하지 않은 회원입니다", null);
+        }
+        User user = foundUser.get();
+        user.setProfileImg(modifyProfileImgReqDto.getProfileImg());
+
+        int result = userRepository.modifyProfileImg(user);
+        if (result != 1) {
+            return new ApiRespDto<>("failed", "프로필 이미지 변경에 실패했습니다", null);
+        }
+        return new ApiRespDto<>("success", "변경 성공", null);
+
+    }
+
 
 }
