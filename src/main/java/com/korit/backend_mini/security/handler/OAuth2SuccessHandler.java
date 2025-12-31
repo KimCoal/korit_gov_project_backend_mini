@@ -27,22 +27,39 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         DefaultOAuth2User defaultOAuth2User = (DefaultOAuth2User) authentication.getPrincipal();
+
+        // OAuth2UserService에서 설정한 attribute 가져오기
         String provider = defaultOAuth2User.getAttribute("provider");
         String providerUserId = defaultOAuth2User.getAttribute("providerUserId");
         String email = defaultOAuth2User.getAttribute("email");
 
-        Optional<OAuth2User> foundOAuth2User = oAuth2UserRepository.findOAuth2UserByProviderAndProviderUserId(provider, providerUserId);
-        if (foundOAuth2User.isEmpty()) {
-            response.sendRedirect("http://localhost:3000/auth/oauth2?provider=" + provider + "&providerUserId" + providerUserId + "&email=" + email);
+        // null 체크 추가
+        if (provider == null || providerUserId == null || email == null) {
+            response.sendRedirect("http://localhost:5173/auth/signin?error=oauth2_data_missing");
             return;
         }
 
-        Optional<User> foundUser = userRepository.findUserByUserId(foundOAuth2User.get().getUserId());
-        if (foundUser.isPresent()) {
-            throw new RuntimeException("서버에 문제가 발생했습니다");
-        }
-        String accessToken = jwtUtils.generateAccessToken(Integer.toString(foundUser.get().getUserId()));
+        // 기존 OAuth2 사용자 확인
+        Optional<OAuth2User> foundOAuth2User = oAuth2UserRepository.findOAuth2UserByProviderAndProviderUserId(provider, providerUserId);
 
-        response.sendRedirect("http://localhost:3000/auth/oauth2/signin?accessToken=" + accessToken);
+        if (foundOAuth2User.isEmpty()) {
+            // 신규 OAuth2 사용자 - 회원가입/연동 페이지로
+            response.sendRedirect("http://localhost:5173/auth/oauth2?provider=" + provider + "&providerUserId=" + providerUserId + "&email=" + email);
+            return;
+        }
+
+        // 기존 OAuth2 사용자가 있으면 User 조회
+        Optional<User> foundUser = userRepository.findUserByUserId(foundOAuth2User.get().getUserId());
+
+        // 수정: isPresent()가 false일 때 에러 처리
+        if (foundUser.isEmpty()) {
+            throw new RuntimeException("연동된 사용자 정보를 찾을 수 없습니다");
+        }
+
+        // 수정: 사용자가 있으면 토큰 발급
+        User user = foundUser.get();
+        String accessToken = jwtUtils.generateAccessToken(Integer.toString(user.getUserId()));
+
+        response.sendRedirect("http://localhost:5173/auth/oauth2/signin?accessToken=" + accessToken);
     }
 }

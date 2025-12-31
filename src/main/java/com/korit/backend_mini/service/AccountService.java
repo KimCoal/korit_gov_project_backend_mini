@@ -29,7 +29,7 @@ public class AccountService {
         }
 
         User user = foundUser.get();
-        if (bCryptPasswordEncoder.matches(modifyPasswordReqDto.getPassword(), user.getPassword())) {
+        if (!bCryptPasswordEncoder.matches(modifyPasswordReqDto.getPassword(), user.getPassword())) {
             return new ApiRespDto<>("failed", "현재 비밀번호가 일치하지 않습니다", null);
         }
 

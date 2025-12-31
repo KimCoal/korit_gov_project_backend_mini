@@ -89,7 +89,7 @@
     </select>
 
     <insert id="addUser" useGeneratedKeys="true" keyProperty="userId">
-        insert into user_tb values (0, #{email}, #{password}, #{username}, null, now(), null, "ACTIVE", null, null);
+        insert into user_tb values (0, #{email}, #{password}, #{username}, "https://firebasestorage.googleapis.com/v0/b/board-study-32913.firebasestorage.app/o/profile-img%2F15946ec4-37a5-44f8-b387-2cde83aa42f8_jpg?alt=media&amp;token=83e8cdd0-dafc-419d-82b4-e01736f868ad", now(), null, "ACTIVE", null, null);
     </insert>
 
     <update id="modifyPassword">
@@ -151,7 +151,7 @@
     <update id="withdraw">
         update
             user_tb
-        ser
+        set
             status = "INACTIVE",
             withdraw_dt = now(),
             delete_dt = DATE_ADD(now(), INTERVAL 90 DAY)
