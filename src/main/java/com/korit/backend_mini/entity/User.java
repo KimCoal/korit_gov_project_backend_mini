@@ -1,5 +1,6 @@
 package com.korit.backend_mini.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +17,7 @@ public class User {
     private Integer userId;
     private String email;
     private String username;
+    @JsonIgnore
     private String password;
     private String profileImg;
     private LocalDateTime createDt;

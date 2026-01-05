@@ -4,6 +4,7 @@ import com.korit.backend_mini.dto.response.BoardRespDto;
 import com.korit.backend_mini.entity.Board;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,4 +17,5 @@ public interface BoardMapper {
     Optional<BoardRespDto> getBoardByBoardId (Integer boardId);
     int modifyBoard(Board board);
     int removeBoard(Integer boardId);
+    List<BoardRespDto> getBoardInfinite(LocalDateTime localDateTime, Integer cursorBoardId, Integer limitPlusOne);
 }

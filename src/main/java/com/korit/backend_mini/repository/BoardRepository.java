@@ -6,6 +6,7 @@ import com.korit.backend_mini.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,5 +41,9 @@ public class BoardRepository {
 
     public int removeBoard(Integer boardId) {
         return boardMapper.removeBoard(boardId);
+    }
+
+    public List<BoardRespDto> getBoardInfinite(LocalDateTime cursorCreateDt, Integer cursorBoardId, Integer limitPlusIOne) {
+        return boardMapper.getBoardInfinite(cursorCreateDt, cursorBoardId, limitPlusIOne);
     }
 }
